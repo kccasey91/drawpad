@@ -1,12 +1,12 @@
-let gridCells = 16;
-
 function createGrid(input) {
     const grid = document.querySelector('.container');
-    gridCells = input;
+    let gridCells = input;
+    grid.innerHTML = '';
 
     for(let i = 0; i < (gridCells * gridCells); i++) {
         let cell = document.createElement('div');
         cell.classList.add('cell');
+        cell.style.flex = `1 0 calc(100% / ${gridCells})`;
         cell.addEventListener("mouseover", () => {
             cell.style.backgroundColor = 'red';
         })
@@ -16,22 +16,23 @@ function createGrid(input) {
 }
 
 function userInput(input){
-    let value = document.querySelector('.slider-value');
-    slider.textContent = `${input}`; 
+  let value = document.querySelector('.slider-value');
+  value.textContent = `${input}`; 
 
 }
-
-createGrid(gridCells);
 
 function slider(){
-    let slider = document.querySelector('.slider');
-    let set = document.querySelector('.set-cells');
+  let slider = document.querySelector('.slider');
+  let set = document.querySelector('.set-cells');
 
-    userInput(slider.value);
+  slider.addEventListener('input', () => {
+      userInput(slider.value);
+  })
 
-    set.addEventListener('click', () => {
-        createGrid(slider.value);
-    })
+  set.addEventListener('click', () => {
+      createGrid(slider.value);
+  })
 }
 
+createGrid(16);
 slider();
